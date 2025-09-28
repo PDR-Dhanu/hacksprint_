@@ -196,11 +196,14 @@ export function Header() {
         <>
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
                 <div className="container flex h-14 max-w-screen-2xl items-center">
-                     <div className="mr-4 flex items-center gap-2">
+                     <div className="mr-4 flex items-center gap-4">
                          <Link href="/" className="flex items-center gap-2">
                              <Trophy className="h-6 w-6 text-primary" />
                              <span className="font-bold font-headline">HackSprint</span>
                          </Link>
+                         <Button variant="outline" size="sm" asChild>
+                             <Link href="/">GenKit ProStudio</Link>
+                         </Button>
                      </div>
 
                      <div className="flex-1 hidden md:flex justify-center">
