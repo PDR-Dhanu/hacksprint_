@@ -196,12 +196,12 @@ export function Header() {
         <>
             <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm">
                 <div className="container flex h-14 max-w-screen-2xl items-center">
-                     <div className="mr-4 flex items-center gap-4">
+                     <div className="mr-4 flex items-center gap-4 group">
                          <Link href="/" className="flex items-center gap-2">
                              <Trophy className="h-6 w-6 text-primary" />
                              <span className="font-bold font-headline">HackSprint</span>
                          </Link>
-                         <Button variant="outline" size="sm" asChild>
+                         <Button variant="outline" size="sm" asChild className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                              <a href="https://genkit-prostudio.vercel.app/" target="_blank" rel="noopener noreferrer">GenKit ProStudio</a>
                          </Button>
                      </div>
