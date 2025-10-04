@@ -235,26 +235,28 @@ export default function Home() {
 
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-        <section className="min-h-screen flex flex-col justify-center items-center text-center animate-fade-in">
-            <GradientText
-                colors={['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))']}
-                animationSpeed={5}
-                className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 font-headline animate-slide-in-down"
-            >
-                Welcome to HackSprint
-            </GradientText>
-            <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 animate-slide-in-up">
-                Your all-in-one platform for managing internal college hackathons. From registration to results, we've got you covered.
-            </p>
-            <div className="flex justify-center gap-4 animate-fade-in" style={{animationDelay: '0.5s'}}>
-                <Button size="lg" asChild>
-                    <Link href="/student">Get Started as Student</Link>
-                </Button>
-                <Button size="lg" variant="secondary" asChild>
-                   <Link href="/judge">Enter as Judge or Admin</Link>
-                </Button>
+        <section className="relative min-h-screen flex flex-col items-center text-center animate-fade-in pt-24 pb-16">
+            <div className="flex-grow flex flex-col items-center justify-center">
+                <GradientText
+                    colors={['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))']}
+                    animationSpeed={5}
+                    className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 font-headline animate-slide-in-down"
+                >
+                    Welcome to HackSprint
+                </GradientText>
+                <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 animate-slide-in-up">
+                    Your all-in-one platform for managing internal college hackathons. From registration to results, we've got you covered.
+                </p>
+                <div className="flex justify-center gap-4 animate-fade-in" style={{animationDelay: '0.5s'}}>
+                    <Button size="lg" asChild>
+                        <Link href="/student">Get Started as Student</Link>
+                    </Button>
+                    <Button size="lg" variant="secondary" asChild>
+                       <Link href="/judge">Enter as Judge or Admin</Link>
+                    </Button>
+                </div>
             </div>
-             <div className="mt-16 w-full max-w-6xl animate-fade-in" style={{animationDelay: '0.8s'}}>
+             <div className="w-full max-w-6xl animate-fade-in" style={{animationDelay: '0.8s'}}>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
                     <div className="p-4 bg-card/50 rounded-lg">
                         <Building2 className="w-8 h-8 mx-auto mb-2 text-primary"/>
@@ -266,14 +268,14 @@ export default function Home() {
                     <div className="p-4 bg-card/50 rounded-lg">
                         <UsersRound className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                            <CountUp end={15700} duration={2.5} />+
+                            <CountUp end={15700} duration={2.5} separator=","/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Users Engaged</p>
                     </div>
                     <div className="p-4 bg-card/50 rounded-lg">
                         <Code className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                           <CountUp end={3200} duration={2.5} />+
+                           <CountUp end={3200} duration={2.5} separator=","/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Projects Submitted</p>
                     </div>
