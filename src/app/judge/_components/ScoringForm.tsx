@@ -11,10 +11,13 @@ import { Slider } from '@/components/ui/slider';
 import { Project, Score, TeamMember } from '@/lib/types';
 import { JUDGING_RUBRIC, INDIVIDUAL_JUDGING_RUBRIC } from '@/lib/constants';
 import Link from 'next/link';
-import { Bot, Loader, User } from 'lucide-react';
-import { getAiProjectSummary } from '@/app/actions';
+import { Bot, Loader, User, Presentation, Volume2 } from 'lucide-react';
+import { getAiProjectSummary, generatePitchOutline, generatePitchAudioAction } from '@/app/actions';
 import BackButton from '@/components/layout/BackButton';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { GeneratePitchOutlineOutput } from '@/ai/flows/generate-pitch-outline';
+import { GeneratePitchAudioOutput } from '@/ai/flows/generate-pitch-audio';
+import { marked } from 'marked';
 
 interface ScoringFormProps {
     project: Project;
@@ -31,6 +34,11 @@ export default function ScoringForm({ project, onBack }: ScoringFormProps) {
     const [aiSummary, setAiSummary] = useState('');
     const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    
+    const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
+    const [pitchOutline, setPitchOutline] = useState<GeneratePitchOutlineOutput | null>(null);
+    const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
+    const [pitchAudio, setPitchAudio] = useState<GeneratePitchAudioOutput | null>(null);
     
     const team = teams.find(t => t.id === project.teamId);
 
@@ -85,6 +93,39 @@ export default function ScoringForm({ project, onBack }: ScoringFormProps) {
             setIsGeneratingSummary(false);
         }
     };
+    
+    const handleGenerateOutline = async () => {
+        setIsGeneratingOutline(true);
+        setPitchOutline(null);
+        setPitchAudio(null);
+        try {
+            const result = await generatePitchOutline({
+                projectName: project.name,
+                projectDescription: project.description,
+                aiCodeReview: aiSummary || undefined
+            });
+            setPitchOutline(result);
+        } finally {
+            setIsGeneratingOutline(false);
+        }
+    };
+
+    const handleGenerateAudio = async () => {
+        if (!pitchOutline) return;
+        
+        setIsGeneratingAudio(true);
+        setPitchAudio(null);
+        try {
+            const script = pitchOutline.slides.map(slide => `${slide.title}. ${slide.content.replace(/[*-]/g, '')}`).join('\n');
+            const result = await generatePitchAudioAction({ script });
+            setPitchAudio(result);
+        } catch (error) {
+            console.error("Error generating audio:", error);
+        } finally {
+            setIsGeneratingAudio(false);
+        }
+    }
+
 
     const handleSubmitScores = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -177,6 +218,41 @@ export default function ScoringForm({ project, onBack }: ScoringFormProps) {
                                     <p className="text-sm text-foreground">{aiSummary}</p>
                                 </CardContent>
                             </Card>
+                        )}
+                    </div>
+                     <div className="mt-6 border-t pt-6 space-y-4">
+                        <h3 className="text-xl font-bold font-headline flex items-center gap-2"><Presentation className="text-primary"/> AI Pitch Coach</h3>
+                        <div className="flex flex-wrap gap-2">
+                            <Button onClick={handleGenerateOutline} disabled={isGeneratingOutline} variant="outline">
+                                {isGeneratingOutline ? <><Loader className="mr-2 h-4 w-4 animate-spin"/> Generating Outline...</> : "Generate Presentation Outline"}
+                            </Button>
+                             {pitchOutline && (
+                                <Button onClick={handleGenerateAudio} disabled={isGeneratingAudio} variant="secondary">
+                                    {isGeneratingAudio ? <><Loader className="mr-2 h-4 w-4 animate-spin"/> Generating Audio...</> : <><Volume2 className="mr-2 h-4 w-4"/>Generate Audio</>}
+                                </Button>
+                            )}
+                        </div>
+                        {pitchAudio?.audioDataUri && (
+                            <div className="pt-4">
+                                <audio controls src={pitchAudio.audioDataUri} className="w-full">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        )}
+                        {pitchOutline && (
+                            <Accordion type="single" collapsible className="w-full mt-4">
+                                {pitchOutline.slides.map((slide, index) => (
+                                <AccordionItem value={`item-${index}`} key={index}>
+                                    <AccordionTrigger>{index + 1}. {slide.title}</AccordionTrigger>
+                                    <AccordionContent>
+                                        <div
+                                            className="prose prose-sm dark:prose-invert text-foreground max-w-none"
+                                            dangerouslySetInnerHTML={{ __html: marked(slide.content) as string }}
+                                        />
+                                    </AccordionContent>
+                                </AccordionItem>
+                                ))}
+                            </Accordion>
                         )}
                     </div>
                 </CardContent>
