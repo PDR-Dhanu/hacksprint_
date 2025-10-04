@@ -5,7 +5,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { BarChart, GalleryVertical, FileText, Github, Lightbulb, Trophy, Users, Handshake, Scale, BrainCircuit, Check, UsersRound, Award, Code, CheckCircle, Shield, Server, Search, CodeXml, User } from "lucide-react";
+import { BarChart, GalleryVertical, FileText, Github, Lightbulb, Trophy, Users, Handshake, Scale, BrainCircuit, Check, UsersRound, Award, Code, CheckCircle, Shield, Server, Search, CodeXml, User, Building2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo } from 'react';
@@ -13,6 +13,8 @@ import { useHackathon } from "@/context/HackathonProvider";
 import GradientText from "@/components/ui/GradientText";
 import { motion } from "framer-motion";
 import ElectricBorder from "@/components/ui/ElectricBorder";
+import CountUp from 'react-countup';
+import { COLLEGES } from "@/lib/colleges";
 
 const FeatureCard = ({ icon, title, description, index }: { icon: React.ReactNode, title: string, description: string, index: number }) => (
     <ElectricBorder
@@ -229,6 +231,7 @@ const HowItWorksAnimation = () => {
 export default function Home() {
   const { state } = useHackathon();
   const { selectedCollege } = state;
+  const institutionsCount = COLLEGES.length;
 
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
@@ -250,6 +253,31 @@ export default function Home() {
                 <Button size="lg" variant="secondary" asChild>
                    <Link href="/judge">Enter as Judge or Admin</Link>
                 </Button>
+            </div>
+             <div className="mt-16 w-full max-w-4xl animate-fade-in" style={{animationDelay: '0.8s'}}>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <Building2 className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                             <CountUp end={institutionsCount} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground">Institutions</p>
+                    </div>
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <UsersRound className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                            <CountUp end={15700} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground">Users Engaged</p>
+                    </div>
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <Code className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                           <CountUp end={3200} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground">Projects Submitted</p>
+                    </div>
+                </div>
             </div>
         </section>
 
