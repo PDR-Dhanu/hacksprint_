@@ -17,7 +17,7 @@ HackSprint is a comprehensive, AI-powered SaaS platform built with Next.js and F
 - **Project Showcase:** A gallery to display all submitted projects, celebrating the participants' work.
 - **Fair & Easy Judging:** A dedicated portal for judges to view submissions, score projects against a defined rubric, and view AI-generated summaries.
 - **Admin Dashboard:** Centralized control for admins to manage users, approve registrations, add judges, and post announcements.
-- **Automated Certificate Generation:** Winners can download a verifiable PDF certificate of achievement.
+- **Automated Certificate Generation:** Winners can download a verifiable PDF certificate of achievement .
 
 ---
 
