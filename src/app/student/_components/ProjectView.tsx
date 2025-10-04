@@ -3,10 +3,10 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Project } from '@/lib/types';
-import { CheckCircle, Bot, Loader, Download, Pencil, Presentation } from 'lucide-react';
+import { CheckCircle, Bot, Loader, Download, Pencil, Presentation, Volume2 } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { getAiCodeReview, generatePitchOutline } from '@/app/actions';
+import { getAiCodeReview, generatePitchOutline, generatePitchAudioAction } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { useHackathon } from '@/context/HackathonProvider';
 import { generateCertificate } from '@/lib/pdf';
@@ -16,6 +16,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { GeneratePitchOutlineOutput } from '@/ai/flows/generate-pitch-outline';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { marked } from 'marked';
+import { GeneratePitchAudioOutput } from '@/ai/flows/generate-pitch-audio';
 
 interface ProjectViewProps {
     project: Project;
@@ -36,6 +37,10 @@ export default function ProjectView({ project }: ProjectViewProps) {
 
     const [isGeneratingOutline, setIsGeneratingOutline] = useState(false);
     const [pitchOutline, setPitchOutline] = useState<GeneratePitchOutlineOutput | null>(null);
+
+    const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
+    const [pitchAudio, setPitchAudio] = useState<GeneratePitchAudioOutput | null>(null);
+
 
      useEffect(() => {
         setProjectName(project.name);
@@ -69,7 +74,7 @@ export default function ProjectView({ project }: ProjectViewProps) {
                 console.error("Failed to generate certificate:", error);
                 alert("Could not generate certificate. Please try again.");
             } finally {
-                setIsGeneratingCert(false);
+                setIsGeneratingCert(null);
             }
         }
     };
@@ -77,6 +82,7 @@ export default function ProjectView({ project }: ProjectViewProps) {
     const handleGenerateOutline = async () => {
         setIsGeneratingOutline(true);
         setPitchOutline(null);
+        setPitchAudio(null);
         try {
             const result = await generatePitchOutline({
                 projectName: project.name,
@@ -88,6 +94,22 @@ export default function ProjectView({ project }: ProjectViewProps) {
             setIsGeneratingOutline(false);
         }
     };
+
+    const handleGenerateAudio = async () => {
+        if (!pitchOutline) return;
+        
+        setIsGeneratingAudio(true);
+        setPitchAudio(null);
+        try {
+            const script = pitchOutline.slides.map(slide => `${slide.title}. ${slide.content.replace(/[*-]/g, '')}`).join('\n');
+            const result = await generatePitchAudioAction({ script });
+            setPitchAudio(result);
+        } catch (error) {
+            console.error("Error generating audio:", error);
+        } finally {
+            setIsGeneratingAudio(false);
+        }
+    }
     
     const handleSaveChanges = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -174,9 +196,23 @@ export default function ProjectView({ project }: ProjectViewProps) {
 
                     <div className="mt-6 border-t pt-4 space-y-4">
                         <h4 className="font-bold flex items-center gap-2"><Presentation className="text-primary"/> AI Pitch Coach</h4>
-                        <Button onClick={handleGenerateOutline} disabled={isGeneratingOutline} variant="outline">
-                            {isGeneratingOutline ? <><Loader className="mr-2 h-4 w-4 animate-spin"/> Generating...</> : "Generate Presentation Outline"}
-                        </Button>
+                        <div className="flex flex-wrap gap-2">
+                            <Button onClick={handleGenerateOutline} disabled={isGeneratingOutline} variant="outline">
+                                {isGeneratingOutline ? <><Loader className="mr-2 h-4 w-4 animate-spin"/> Generating...</> : "Generate Presentation Outline"}
+                            </Button>
+                             {pitchOutline && (
+                                <Button onClick={handleGenerateAudio} disabled={isGeneratingAudio} variant="secondary">
+                                    {isGeneratingAudio ? <><Loader className="mr-2 h-4 w-4 animate-spin"/> Generating...</> : <><Volume2 className="mr-2 h-4 w-4"/>Generate Audio</>}
+                                </Button>
+                            )}
+                        </div>
+                        {pitchAudio?.audioDataUri && (
+                            <div className="pt-4">
+                                <audio controls src={pitchAudio.audioDataUri} className="w-full">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                        )}
                         {pitchOutline && (
                             <Accordion type="single" collapsible className="w-full">
                                 {pitchOutline.slides.map((slide, index) => (

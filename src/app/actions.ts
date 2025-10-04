@@ -12,6 +12,7 @@ import { findTeammateMatches as findTeammateMatchesFlow, FindTeammateMatchesInpu
 import { generateHackathonReport as generateHackathonReportFlow, GenerateHackathonReportInput } from '@/ai/flows/generate-hackathon-summary-report';
 import { triageSupportTicket as triageSupportTicketFlow, TriageSupportTicketInput, TriageSupportTicketOutput } from '@/ai/flows/triage-support-ticket';
 import { generateSupportResponse as generateSupportResponseFlow, GenerateSupportResponseInput, GenerateSupportResponseOutput } from '@/ai/flows/generate-support-response';
+import { generatePitchAudio as generatePitchAudioFlow, GeneratePitchAudioInput, GeneratePitchAudioOutput } from '@/ai/flows/generate-pitch-audio';
 
 
 // AI Related Actions
@@ -83,6 +84,16 @@ export async function generatePitchOutline(input: GeneratePitchOutlineInput): Pr
         return null;
     }
 }
+
+export async function generatePitchAudioAction(input: GeneratePitchAudioInput): Promise<GeneratePitchAudioOutput | null> {
+    try {
+        return await generatePitchAudioFlow(input);
+    } catch (error) {
+        console.error("Error generating pitch audio:", error);
+        return null;
+    }
+}
+
 
 export async function findTeammateMatches(input: FindTeammateMatchesInput): Promise<FindTeammateMatchesOutput> {
     try {
