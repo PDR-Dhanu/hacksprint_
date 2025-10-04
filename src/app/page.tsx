@@ -235,8 +235,7 @@ export default function Home() {
 
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-        <section className="relative min-h-screen flex flex-col items-center text-center animate-fade-in pt-24 pb-16">
-            <div className="flex-grow flex flex-col items-center justify-center">
+        <section className="relative min-h-screen flex flex-col items-center justify-center text-center animate-fade-in pt-24 pb-16">
                 <GradientText
                     colors={['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))']}
                     animationSpeed={5}
@@ -255,53 +254,6 @@ export default function Home() {
                        <Link href="/judge">Enter as Judge or Admin</Link>
                     </Button>
                 </div>
-            </div>
-             <div className="w-full max-w-6xl animate-fade-in" style={{animationDelay: '0.8s'}}>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
-                    <div className="p-4 bg-card/50 rounded-lg">
-                        <Building2 className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                             <CountUp end={institutionsCount} duration={2.5} />+
-                        </p>
-                        <p className="text-muted-foreground text-sm">Institutions</p>
-                    </div>
-                    <div className="p-4 bg-card/50 rounded-lg">
-                        <UsersRound className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                            <CountUp end={15700} duration={2.5} separator=","/>+
-                        </p>
-                        <p className="text-muted-foreground text-sm">Users Engaged</p>
-                    </div>
-                    <div className="p-4 bg-card/50 rounded-lg">
-                        <Code className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                           <CountUp end={3200} duration={2.5} separator=","/>+
-                        </p>
-                        <p className="text-muted-foreground text-sm">Projects Submitted</p>
-                    </div>
-                    <div className="p-4 bg-card/50 rounded-lg">
-                        <Trophy className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                           <CountUp end={450} duration={2.5} />+
-                        </p>
-                        <p className="text-muted-foreground text-sm">Hackathons Hosted</p>
-                    </div>
-                     <div className="p-4 bg-card/50 rounded-lg">
-                        <Award className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                           <CountUp end={900} duration={2.5} />+
-                        </p>
-                        <p className="text-muted-foreground text-sm">Winning Projects</p>
-                    </div>
-                     <div className="p-4 bg-card/50 rounded-lg">
-                        <BrainCircuit className="w-8 h-8 mx-auto mb-2 text-primary"/>
-                        <p className="text-3xl font-bold">
-                           <CountUp end={25000} duration={2.5} separator="," />+
-                        </p>
-                        <p className="text-muted-foreground text-sm">AI Reviews</p>
-                    </div>
-                </div>
-            </div>
         </section>
 
         <section className="py-24 scroll-m-20" data-animate-on-scroll>
@@ -353,6 +305,55 @@ export default function Home() {
         <section className="py-24 scroll-m-20" data-animate-on-scroll>
              <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 font-headline">How It Works</h2>
              <HowItWorksAnimation />
+        </section>
+
+        <section className="py-24 scroll-m-20" data-animate-on-scroll>
+            <div className="w-full max-w-6xl mx-auto">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-center">
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <Building2 className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                             <CountUp end={institutionsCount} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground text-sm">Institutions</p>
+                    </div>
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <UsersRound className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                            <CountUp end={15700} duration={2.5} separator=","/>+
+                        </p>
+                        <p className="text-muted-foreground text-sm">Users Engaged</p>
+                    </div>
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <Code className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                           <CountUp end={3200} duration={2.5} separator=","/>+
+                        </p>
+                        <p className="text-muted-foreground text-sm">Projects Submitted</p>
+                    </div>
+                    <div className="p-4 bg-card/50 rounded-lg">
+                        <Trophy className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                           <CountUp end={450} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground text-sm">Hackathons Hosted</p>
+                    </div>
+                     <div className="p-4 bg-card/50 rounded-lg">
+                        <Award className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                           <CountUp end={900} duration={2.5} />+
+                        </p>
+                        <p className="text-muted-foreground text-sm">Winning Projects</p>
+                    </div>
+                     <div className="p-4 bg-card/50 rounded-lg">
+                        <BrainCircuit className="w-8 h-8 mx-auto mb-2 text-primary"/>
+                        <p className="text-3xl font-bold">
+                           <CountUp end={25000} duration={2.5} separator="," />+
+                        </p>
+                        <p className="text-muted-foreground text-sm">AI Reviews</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section className="py-24 scroll-m-20" id="roles" data-animate-on-scroll>
@@ -596,3 +597,4 @@ export default function Home() {
     </div>
   );
 }
+
