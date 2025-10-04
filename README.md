@@ -29,7 +29,7 @@ HackSprint is a comprehensive, AI-powered SaaS platform built with Next.js and F
 - **Database & Auth (Simulated):** State management using React Context and `localStorage` to simulate a Firebase backend.
 - **Deployment:** Ready for [Vercel](https://vercel.com/) or [Firebase App Hosting](https://firebase.google.com/docs/app-hosting).
 
----
+----
 
 ## 🛠️ Getting Started
 
