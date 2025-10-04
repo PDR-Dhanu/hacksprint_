@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { Button } from "@/components/ui/button";
@@ -313,42 +312,42 @@ export default function Home() {
                     <div className="p-4 bg-card/50 rounded-lg">
                         <Building2 className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                             <CountUp end={institutionsCount} duration={2.5} />+
+                             <CountUp end={institutionsCount} duration={2.5} enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Institutions</p>
                     </div>
                     <div className="p-4 bg-card/50 rounded-lg">
                         <UsersRound className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                            <CountUp end={15700} duration={2.5} separator=","/>+
+                            <CountUp end={15700} duration={2.5} separator="," enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Users Engaged</p>
                     </div>
                     <div className="p-4 bg-card/50 rounded-lg">
                         <Code className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                           <CountUp end={3200} duration={2.5} separator=","/>+
+                           <CountUp end={3200} duration={2.5} separator="," enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Projects Submitted</p>
                     </div>
                     <div className="p-4 bg-card/50 rounded-lg">
                         <Trophy className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                           <CountUp end={450} duration={2.5} />+
+                           <CountUp end={450} duration={2.5} enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Hackathons Hosted</p>
                     </div>
                      <div className="p-4 bg-card/50 rounded-lg">
                         <Award className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                           <CountUp end={900} duration={2.5} />+
+                           <CountUp end={900} duration={2.5} enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">Winning Projects</p>
                     </div>
                      <div className="p-4 bg-card/50 rounded-lg">
                         <BrainCircuit className="w-8 h-8 mx-auto mb-2 text-primary"/>
                         <p className="text-3xl font-bold">
-                           <CountUp end={25000} duration={2.5} separator="," />+
+                           <CountUp end={25000} duration={2.5} separator="," enableScrollSpy scrollSpyDelay={200}/>+
                         </p>
                         <p className="text-muted-foreground text-sm">AI Reviews</p>
                     </div>
@@ -598,3 +597,4 @@ export default function Home() {
   );
 }
 
+    
