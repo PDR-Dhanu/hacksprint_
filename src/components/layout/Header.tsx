@@ -202,7 +202,7 @@ export function Header() {
                              <span className="font-bold font-headline">HackSprint</span>
                          </Link>
                          <Button variant="outline" size="sm" asChild className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                             <a href="https://genkit-prostudio.vercel.app/" target="_blank" rel="noopener noreferrer">GenKit ProStudio</a>
+                             <a href="https://genkit.com" target="_blank" rel="noopener noreferrer">GenKit ProStudio</a>
                          </Button>
                      </div>
 
