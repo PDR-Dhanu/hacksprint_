@@ -14,6 +14,9 @@ import { motion } from "framer-motion";
 import ElectricBorder from "@/components/ui/ElectricBorder";
 import CountUp from 'react-countup';
 import { COLLEGES } from "@/lib/colleges";
+import AnimatedShaderHero from "@/components/ui/animated-shader-hero";
+import { useRouter } from "next/navigation";
+
 
 const FeatureCard = ({ icon, title, description, index }: { icon: React.ReactNode, title: string, description: string, index: number }) => (
     <ElectricBorder
@@ -228,31 +231,38 @@ const HowItWorksAnimation = () => {
     );
 };
 export default function Home() {
-  const { state } = useHackathon();
-  const { selectedCollege } = state;
+  const router = useRouter();
+
+  const handlePrimaryClick = () => {
+    router.push('/student');
+  };
+
+  const handleSecondaryClick = () => {
+    router.push('/judge');
+  };
+
   const institutionsCount = COLLEGES.length;
 
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-x-hidden">
-        <section className="relative min-h-screen flex flex-col items-center justify-center text-center animate-fade-in pt-24 pb-16">
-                <GradientText
-                    colors={['hsl(var(--primary))', 'hsl(var(--secondary))', 'hsl(var(--accent))']}
-                    animationSpeed={5}
-                    className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-4 font-headline animate-slide-in-down"
-                >
-                    Welcome to HackSprint
-                </GradientText>
-                <p className="max-w-3xl mx-auto text-lg md:text-xl text-muted-foreground mb-8 animate-slide-in-up">
-                    Your all-in-one platform for managing internal college hackathons. From registration to results, we've got you covered.
-                </p>
-                <div className="flex justify-center gap-4 animate-fade-in" style={{animationDelay: '0.5s'}}>
-                    <Button size="lg" asChild>
-                        <Link href="/student">Get Started as Student</Link>
-                    </Button>
-                    <Button size="lg" variant="secondary" asChild>
-                       <Link href="/judge">Enter as Judge or Admin</Link>
-                    </Button>
-                </div>
+        <section className="relative min-h-screen flex flex-col items-center justify-center text-center -mt-14">
+            <AnimatedShaderHero
+                headline={{
+                    line1: "Welcome to",
+                    line2: "HackSprint"
+                }}
+                subtitle="Your all-in-one platform for managing internal college hackathons. From registration to results, we've got you covered."
+                buttons={{
+                    primary: {
+                        text: "Get Started as Student",
+                        onClick: handlePrimaryClick,
+                    },
+                    secondary: {
+                        text: "Enter as Judge or Admin",
+                        onClick: handleSecondaryClick,
+                    }
+                }}
+            />
         </section>
 
         <section className="py-24 scroll-m-20" data-animate-on-scroll>
