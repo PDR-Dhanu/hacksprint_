@@ -245,11 +245,11 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden">
-        <section className="relative min-h-screen flex flex-col items-center justify-center text-center -mt-14">
+        <section className="relative w-full min-h-screen flex flex-col items-center justify-center text-center -mt-14">
             <AnimatedShaderHero
                 headline={{
-                    line1: "Welcome to",
-                    line2: "HackSprint"
+                    line1: "Welcome to HackSprint",
+                    line2: ""
                 }}
                 subtitle="Your all-in-one platform for managing internal college hackathons. From registration to results, we've got you covered."
                 buttons={{
