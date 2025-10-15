@@ -3,7 +3,7 @@
 "use client";
 
 import './globals.css';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { PT_Sans, Playfair_Display } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { HackathonProvider, useHackathon } from '@/context/HackathonProvider';
 import { Header } from '@/components/layout/Header';
@@ -17,8 +17,16 @@ import { Loader } from 'lucide-react';
 import { useCustomCursor } from '@/hooks/use-custom-cursor';
 import FallingStars from '@/components/ui/FallingStars';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-space-grotesk' });
+const ptSans = PT_Sans({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-pt-sans',
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair-display',
+});
 
 function AppContent({ children }: { children: React.ReactNode }) {
     const { state } = useHackathon();
@@ -102,7 +110,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>" />
       </head>
-      <body className={cn("font-body antialiased", inter.variable, spaceGrotesk.variable)}>
+      <body className={cn("font-body antialiased", ptSans.variable, playfairDisplay.variable)}>
         <ThemeProvider
             attribute="class"
             defaultTheme="system"
